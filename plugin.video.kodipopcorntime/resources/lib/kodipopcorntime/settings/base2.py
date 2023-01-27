@@ -137,15 +137,10 @@ class _MetaClass2(_MetaClass):
             cls.keep_incomplete = False
 
     def _binary_path(cls):
+        """ legacy death code """
         binary = "torrent2http"
-        if Platform.system == 'windows':
-            binary = "torrent2http.exe"
 
-        binary_path = os.path.join(__addon__.getAddonInfo('path'), 'resources', 'bin', "%s_%s" %(Platform.system, Platform.arch), binary)
-
-        if Platform.system == "android":
-            existBinary(binary_path)
-            binary_path = ensure_android_binary_location(binary_path, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(xbmcvfs.translatePath('special://xbmc')))), "files", __addon__.getAddonInfo('id'), binary))
+        binary_path = os.path.join(__addon__.getAddonInfo('path'), 'resources', 'bin', binary)
 
         existBinary(binary_path)
         ensure_exec(binary_path)

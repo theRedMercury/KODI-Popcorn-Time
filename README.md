@@ -2,6 +2,16 @@
 
 #Personal test for support 4k with KODI#
 
+# torrest version #
+
+requires : [https://github.com/i96751414/plugin.video.torrest](https://github.com/i96751414/plugin.video.torrest)
+
+I create this version because on raspberry torrent2htpp is unstable sometime.
+
+The release is more more light.
+
+I didn't remove unused settings... TODO
+
 <hr>
 
 =======

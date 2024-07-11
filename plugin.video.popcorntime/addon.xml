@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.popcorntime" name="Popcorn Time" version="3.0.0" provider-name="theRedMercury">
+<addon id="plugin.video.popcorntime" name="Popcorn Time" version="3.0.1" provider-name="theRedMercury">
     <requires>
-        <import addon="xbmc.python" version="3.0.0"/>
+        <import addon="xbmc.python" version="3.0.1"/>
         <import addon="script.module.xbmcswift2" version="19.0.7"/>
         <import addon="plugin.video.torrest" version="0.0.14"/>
     </requires>

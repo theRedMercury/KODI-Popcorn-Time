@@ -1,43 +1,35 @@
 #!/usr/bin/env python
 
 __license__ = "GPLv3"
-__version__ = "3.0.0"
+__version__ = "3.0.1"
 __author__ = "theRedMercury"
 
-from resources.lib.api.api import API, get_torrest_plugin_url, get_youtube_plugin_url, get_stream_info_video
+from resources.lib.api.api import API, get_torrest_plugin_url, get_youtube_plugin_url, get_stream_info_video, URL_API_SERVER
 from resources.lib.utils import get_setting
 
 
 class MovieApi:
     types = "movies"
 
-    domains = [
-        "https://movies-api.ga",
-        "https://movies-api.tk",
-        "https://popcorn-time.ga",
-        "https://shows.cf",
-    ]
 
     def __init__(self):
         pass
 
     @staticmethod
     def get_movies(pct_plugin, page, sort_request, genre):
-        json_reply = {}
-        for dom in MovieApi.domains:
-            json_reply = API.get_list(pct_plugin.utils, dom, MovieApi.types, page, genre, sort_request)
-            if json_reply != {}:
-                continue
-        return MovieApi.populate_items(pct_plugin, json_reply)
+        for dom in URL_API_SERVER:
+            reply =  API.get_list(pct_plugin.utils, dom, MovieApi.types, page, genre, sort_request)
+            if reply is not None:
+                return MovieApi.populate_items(pct_plugin, reply)
+        return []
 
     @staticmethod
     def search_movies(pct_plugin, keyword):
-        json_reply = {}
-        for dom in MovieApi.domains:
-            json_reply = API.get_search(pct_plugin.utils, dom, MovieApi.types, keyword)
-            if json_reply != {}:
-                continue
-        return MovieApi.populate_items(pct_plugin, json_reply)
+        for dom in URL_API_SERVER:
+            reply =  API.get_search(pct_plugin.utils, dom, MovieApi.types, keyword)
+            if reply is not None:
+                return MovieApi.populate_items(pct_plugin, reply)
+        return []
 
     @staticmethod
     def populate_items(pct_plugin, json_reply):

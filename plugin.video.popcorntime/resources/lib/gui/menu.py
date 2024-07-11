@@ -41,5 +41,15 @@ class MainMenu(xbmcswift2.Module):
                 },
                 'offscreen': True
             },
+            {
+                'label': self.pct_plugin.tr('anime'),
+                'icon': get_media("categories", "TVShows.png"),
+                'thumbnail': get_media("categories", "TVShows.png"),
+                'path': self.url_for('animes_m.menu', explicit=True),
+                "properties": {
+                    "fanart_image": get_media("categories", "fanart.jpg"),
+                },
+                'offscreen': True
+            },
         ]
         return items

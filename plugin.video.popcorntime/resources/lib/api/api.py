@@ -9,6 +9,17 @@ import re
 from urllib.request import Request, urlopen
 
 
+URL_API_SERVER = [
+        "https://fusme.link",
+        "https://jfper.link",
+        "https://uxert.link",
+        "https://yrkde.link",
+        "https://movies-api.ga",
+        "https://movies-api.tk",
+        "https://popcorn-time.ga",
+        "https://shows.cf",
+    ]
+
 def get_torrest_plugin_url(magnet_link, with_run=False) -> str:
     if with_run:
         return f"runplugin(plugin://plugin.video.torrest/play_magnet?magnet={magnet_link})"
@@ -115,9 +126,11 @@ class API:
             response = urlopen(request)
             results = json.loads(response.read())
             utils.log.debug(f"API : {request.get_full_url()} > {results}")
+            if len(results) == 0:
+                return None
             return results
 
         except Exception as e:
             utils.log.warning(f"API request fail : {request.get_full_url()}")
             utils.log.warning(e)
-            return {}
+            return None

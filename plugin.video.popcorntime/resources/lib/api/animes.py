@@ -8,43 +8,45 @@ from resources.lib.api.api import API, get_torrest_plugin_url, get_stream_info_v
 from resources.lib.utils import get_setting
 
 
-class TvShowAPI:
-    types = "shows"
+class AnimeAPI:
+    types = "animes"
     type_season = "show"
 
 
     def __init__(self):
         pass
-    
 
     @staticmethod
-    def get_tvshows(plugin, page, sort_request, genre):
+    def get_animes(plugin, page, sort_request, genre):
         for dom in URL_API_SERVER:
-            reply = API.get_list(plugin.pct_plugin.utils, dom, TvShowAPI.types, page, genre, sort_request)
+            reply = API.get_list(plugin.pct_plugin.utils, dom, AnimeAPI.types, page, genre, sort_request)
             if reply is not None:
-                return TvShowAPI.populate_shows(plugin, reply)
+                return AnimeAPI.populate_shows(plugin, reply)
+
         return []
 
     @staticmethod
     def search(plugin, keyword):
         for dom in URL_API_SERVER:
-            reply = API.get_search(plugin.pct_plugin.utils, dom, TvShowAPI.types, keyword)
-            if reply is not None:
-                return TvShowAPI.populate_shows(plugin, reply)
+             reply  = API.get_search(plugin.pct_plugin.utils, dom, AnimeAPI.types, keyword)
+             if reply is not None:
+                return AnimeAPI.populate_shows(plugin, reply)
+
         return []
-    
+
     @staticmethod
-    def get_tvshows_episodes(plugin, id_show, season):
+    def get_animes_episodes(plugin, id_show, season):
+
         for dom in URL_API_SERVER:
-            reply = API.get_list_show_all(plugin.pct_plugin.utils, dom, TvShowAPI.type_season, id_show)
+            reply  = API.get_list_show_all(plugin.pct_plugin.utils, dom, AnimeAPI.type_season, id_show)
             if reply is not None:
-                return TvShowAPI.populate_episodes(plugin, reply, season)
-        return []
-    
+                return AnimeAPI.populate_episodes(plugin, reply, season)
+        
+
     @staticmethod
-    def populate_shows(plugin, json_reply):
+    def populate_shows(plugin, list_json_reply):
         items = []
-        for result in json_reply:
+        for result in list_json_reply:
             item = {
                 "label": f"{result.get('title')} ({result.get('num_seasons')} seasons)",
                 "icon": result.get('images').get('poster'),
@@ -54,7 +56,7 @@ class TvShowAPI:
                 },
 
                 "info": {
-                    'mediatype': 'tvshow',
+                    'mediatype': 'Anime',
                     'title': result.get('title'),
                     'tagline': result.get('num_seasons'),
                     'year': int(result.get('year')),
